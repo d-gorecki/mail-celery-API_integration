@@ -24,13 +24,14 @@ class EmailSerializer(serializers.ModelSerializer):
             instance
         )
         representation["date"] = instance.date.strftime("%d-%m-%Y %H:%M:%S")
-        representation["last_update"] = instance.last_update.strftime(
-            "%d-%m-%Y %H:%M:%S"
-        )
+        if representation["sent_date"]:
+            representation["sent_date"] = instance.sent_date.strftime(
+                "%d-%m-%Y %H:%M:%S"
+            )
         return representation
 
     def create(self, validated_data):
         mailbox = validated_data.get("mailbox")
         if mailbox.is_active:
             send_email_task(mailbox, validated_data.get("template"), validated_data)
-        return Email.obects.create(**validated_data)
+        return Email.objects.create(**validated_data)

@@ -1,5 +1,7 @@
+import os.path
 import uuid
 from django.db import models
+from django.conf import settings
 
 
 class Template(models.Model):
@@ -11,3 +13,6 @@ class Template(models.Model):
     last_update = models.DateTimeField(
         auto_now=True, help_text="value changes automatically during template update"
     )
+
+    def filename(self):
+        return os.path.join(settings.MEDIA_ROOT, self.attachment.name)

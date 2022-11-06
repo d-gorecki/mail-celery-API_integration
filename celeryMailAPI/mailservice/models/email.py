@@ -13,4 +13,10 @@ class Email(models.Model):
     cc = ArrayField(models.EmailField(), help_text="copy receivers", null=True)
     bcc = ArrayField(models.EmailField(), help_text="hidden copy receivers", null=True)
     reply_to = models.EmailField(default=None, null=True, help_text="reply mail")
-    sent_date = models.DateTimeField(auto_now_add=True)
+    date = models.DateField(auto_now=True, help_text="Creation date")
+    sent_date = models.DateTimeField(
+        default=None,
+        null=True,
+        editable=False,
+        help_text="set after successful mail send",
+    )

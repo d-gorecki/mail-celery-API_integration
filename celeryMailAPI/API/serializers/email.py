@@ -39,14 +39,17 @@ class EmailSerializer(serializers.ModelSerializer):
             mailbox_serialized = MailboxDefaultSerializer(mailbox)
             task_validated_data = (
                 validated_data.copy()
-            )  # copy of validated_data with model objects removed to be pased to celery task
+            )  # copy of validated_data with model objects removed to be passed to celery task
             filename = validated_data.get("template").filename()
             task_validated_data.pop("template")
             task_validated_data.pop("mailbox")
+            email = Email(**validated_data)
             send_email_task.delay(
                 mailbox_serialized.data,
                 template_serialized.data,
                 task_validated_data,
                 filename,
+                email.id,
             )
-        return Email.objects.create(**validated_data)
+            email.save()
+        return email

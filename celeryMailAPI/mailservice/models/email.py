@@ -17,6 +17,5 @@ class Email(models.Model):
     sent_date = models.DateTimeField(
         default=None,
         null=True,
-        editable=False,
         help_text="set after successful mail send",
     )

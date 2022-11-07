@@ -16,5 +16,5 @@ class Mailbox(models.Model):
         auto_now=True, help_text="value changes automatically during mailbox update"
     )
     sent = models.IntegerField(
-        default=0, editable=False, help_text="number of messages sent from mailbox"
+        default=0, help_text="number of messages sent from mailbox"
     )

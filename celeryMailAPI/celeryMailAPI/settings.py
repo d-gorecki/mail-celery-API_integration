@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "mailservice",
     "rest_framework",
+    "django_filters",
 ]
 
 MIDDLEWARE = [

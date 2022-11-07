@@ -2,6 +2,8 @@ from typing import OrderedDict, Any
 from rest_framework import serializers
 from mailservice.models.email import Email
 from mailservice.tasks import send_email_task
+from API.serializers.template import TemplateSerializer
+from API.serializers.mailbox import MailboxDefaultSerializer
 
 
 class EmailSerializer(serializers.ModelSerializer):
@@ -33,5 +35,18 @@ class EmailSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         mailbox = validated_data.get("mailbox")
         if mailbox.is_active:
-            send_email_task(mailbox, validated_data.get("template"), validated_data)
+            template_serialized = TemplateSerializer(validated_data.get("template"))
+            mailbox_serialized = MailboxDefaultSerializer(mailbox)
+            task_validated_data = (
+                validated_data.copy()
+            )  # copy of validated_data with model objects removed to be pased to celery task
+            filename = validated_data.get("template").filename()
+            task_validated_data.pop("template")
+            task_validated_data.pop("mailbox")
+            send_email_task.delay(
+                mailbox_serialized.data,
+                template_serialized.data,
+                task_validated_data,
+                filename,
+            )
         return Email.objects.create(**validated_data)

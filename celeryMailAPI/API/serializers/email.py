@@ -7,6 +7,8 @@ from API.serializers.mailbox import MailboxDefaultSerializer
 
 
 class EmailSerializer(serializers.ModelSerializer):
+    sent_date = serializers.ReadOnlyField()
+
     class Meta:
         model = Email
         fields = [

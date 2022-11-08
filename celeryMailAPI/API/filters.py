@@ -1,7 +1,6 @@
 from django_filters import rest_framework as filters
 from django_filters.widgets import BooleanWidget
 from django.utils.translation import gettext as _
-
 from mailservice.models.email import Email
 
 

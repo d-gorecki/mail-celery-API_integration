@@ -1,9 +1,12 @@
 from typing import Any, OrderedDict
 from rest_framework import serializers
 from mailservice.models.template import Template
+from datetime import datetime
 
 
 class TemplateSerializer(serializers.ModelSerializer):
+    last_update: serializers.ReadOnlyField = serializers.ReadOnlyField()
+
     class Meta:
         model: Template = Template
         fields: list[str] = [

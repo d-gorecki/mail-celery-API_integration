@@ -4,6 +4,9 @@ from mailservice.models.mailbox import Mailbox
 
 
 class MailboxDefaultSerializer(serializers.ModelSerializer):
+    last_update: serializers.ReadOnlyField = serializers.ReadOnlyField()
+    sent: serializers.ReadOnlyField = serializers.ReadOnlyField()
+
     class Meta:
         model: Mailbox = Mailbox
         fields: list[str] = [

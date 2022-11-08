@@ -53,10 +53,11 @@ def send_email_task(
 @task_success.connect(sender=send_email_task)
 def task_success_actions(sender, result, **kwargs):
     """Celery task send_email_task post-success actions. Sets datetime.now object to sent field of the Email model object.
-    Modifies sent mail counter of corresponding Mailbox model object."""
+    Modifies sent mail counter and last update datetime filed of corresponding Mailbox model object."""
     email = Email.objects.get(pk=result)
     email.sent_date = datetime.now()
     mailbox = email.mailbox
     mailbox.sent += 1
+    mailbox.last_update = datetime.now()
     mailbox.save()
     email.save()

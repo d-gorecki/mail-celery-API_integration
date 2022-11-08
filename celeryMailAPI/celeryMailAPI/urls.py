@@ -21,7 +21,7 @@ from API.views.template import TemplateViewSet
 from API.views.email import EmailViewSet
 
 router = DefaultRouter()
-router.register(r"mailbox", MailboxViewSet, basename="router")
+router.register(r"mailbox", MailboxViewSet, basename="mailbox")
 router.register(r"template", TemplateViewSet, basename="template")
 router.register(r"email", EmailViewSet, basename="email")
 

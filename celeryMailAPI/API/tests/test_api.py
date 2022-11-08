@@ -3,7 +3,6 @@ from django.urls import reverse
 from API.tests import factory as api_factory
 from rest_framework.test import APITestCase
 from API.serializers.mailbox import MailboxDefaultSerializer
-from API.serializers.email import EmailSerializer
 from rest_framework import status
 from mailservice.models.template import Template
 from mailservice.models.mailbox import Mailbox
@@ -41,4 +40,31 @@ class TestAPI(APITestCase):
         self.assertEqual(Email.objects.count(), 1)
 
     def test_send_email_from_not_active_mailbox(self):
-        email = api_factory.EmailFactory()
+        mailbox = api_factory.MailboxFactory()
+        mailbox.is_active = False
+        mailbox.save()
+        template = api_factory.TemplateFactory()
+        email_dict = {
+            "mailbox": f"{mailbox.id}",
+            "template": f"{template.id}",
+            "to": ["test@gmail.com"],
+            "reply_to": "test@gmail.com",
+        }
+        response = self.client.post(reverse("email-list"), email_dict)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_delete_mailbox(self):
+        mailbox = api_factory.MailboxFactory()
+        response = self.client.delete(
+            reverse("mailbox-detail", kwargs={"pk": mailbox.id})
+        )
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Mailbox.objects.count(), 0)
+
+    def test_patch_mailbox(self):
+        mailbox = api_factory.MailboxFactory()
+        response = self.client.patch(
+            reverse("mailbox-detail", kwargs={"pk": mailbox.id}), {"host": "patched"}
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(Mailbox.objects.get(pk=mailbox.pk).host, "patched")

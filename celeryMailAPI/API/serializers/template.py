@@ -5,15 +5,22 @@ from mailservice.models.template import Template
 
 class TemplateSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Template
-        fields = ["id", "subject", "text", "attachment", "date", "last_update"]
+        model: Template = Template
+        fields: list[str] = [
+            "id",
+            "subject",
+            "text",
+            "attachment",
+            "date",
+            "last_update",
+        ]
 
     def to_representation(self, instance) -> OrderedDict[Any, Any | None]:
         representation: OrderedDict[Any, Any | None] = super().to_representation(
             instance
         )
-        representation["date"] = instance.date.strftime("%d-%m-%Y %H:%M:%S")
-        representation["last_update"] = instance.last_update.strftime(
+        representation["date"]: str = instance.date.strftime("%d-%m-%Y %H:%M:%S")
+        representation["last_update"]: str = instance.last_update.strftime(
             "%d-%m-%Y %H:%M:%S"
         )
         return representation

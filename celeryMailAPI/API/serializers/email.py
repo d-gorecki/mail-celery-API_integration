@@ -7,6 +7,20 @@ from mailservice.tasks import send_email_task
 from API.serializers.template import TemplateSerializer
 from API.serializers.mailbox import MailboxDefaultSerializer
 
+from rest_framework.exceptions import APIException
+from rest_framework import status
+
+
+class CustomException(APIException):
+    status_code = status.HTTP_400_BAD_REQUEST
+    default_detail = "Custom Exception Message"
+    default_code = "invalid"
+
+    def __init__(self, detail, status_code=None):
+        self.detail = detail
+        if status_code is not None:
+            self.status_code = status_code
+
 
 class EmailSerializer(serializers.ModelSerializer):
     sent_date: serializers.ReadOnlyField = serializers.ReadOnlyField()
@@ -29,6 +43,7 @@ class EmailSerializer(serializers.ModelSerializer):
         representation: OrderedDict[Any, Any | None] = super().to_representation(
             instance
         )
+
         representation["date"]: str = instance.date.strftime("%d-%m-%Y %H:%M:%S")
         if representation["sent_date"]:
             representation["sent_date"]: str = instance.sent_date.strftime(
@@ -64,4 +79,9 @@ class EmailSerializer(serializers.ModelSerializer):
                 email.id,
             )
             email.save()
-        return email
+            return email
+        else:
+            raise CustomException(
+                detail={"mailbox_status": "inactive"},
+                status_code=status.HTTP_400_BAD_REQUEST,
+            )

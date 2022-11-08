@@ -10,9 +10,6 @@ from mailservice.models.email import Email
 
 
 class TestAPI(APITestCase):
-    def setUp(self) -> None:
-        pass
-
     def test_create_template(self):
         response = self.client.post(
             reverse("template-list"), {"subject": "test", "text": "test"}

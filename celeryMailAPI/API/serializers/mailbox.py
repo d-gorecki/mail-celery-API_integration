@@ -1,13 +1,16 @@
-from typing import OrderedDict, Any
+from typing import Any, OrderedDict
 
-from rest_framework import serializers
 from mailservice.models.mailbox import Mailbox
+from rest_framework import serializers
 
 
 class MailboxDefaultSerializer(serializers.ModelSerializer):
+    last_update: serializers.ReadOnlyField = serializers.ReadOnlyField()
+    sent: serializers.ReadOnlyField = serializers.ReadOnlyField()
+
     class Meta:
-        model = Mailbox
-        fields = [
+        model: Mailbox = Mailbox
+        fields: list[str] = [
             "id",
             "host",
             "port",
@@ -25,8 +28,8 @@ class MailboxDefaultSerializer(serializers.ModelSerializer):
         representation: OrderedDict[Any, Any | None] = super().to_representation(
             instance
         )
-        representation["date"] = instance.date.strftime("%d-%m-%Y %H:%M:%S")
-        representation["last_update"] = instance.last_update.strftime(
+        representation["date"]: str = instance.date.strftime("%d-%m-%Y %H:%M:%S")
+        representation["last_update"]: str = instance.last_update.strftime(
             "%d-%m-%Y %H:%M:%S"
         )
         return representation

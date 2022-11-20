@@ -1,9 +1,10 @@
-from rest_framework import viewsets
 from API.serializers.template import TemplateSerializer
+from django.db.models import QuerySet
 from mailservice.models.template import Template
+from rest_framework import viewsets
 
 
 class TemplateViewSet(viewsets.ModelViewSet):
-    queryset = Template.objects.all()
-    serializer_class = TemplateSerializer
-    http_method_names = ["get", "post", "put", "patch", "delete"]
+    queryset: QuerySet[Template] = Template.objects.all()
+    serializer_class: TemplateSerializer = TemplateSerializer
+    http_method_names: list[str] = ["get", "post", "put", "patch", "delete"]

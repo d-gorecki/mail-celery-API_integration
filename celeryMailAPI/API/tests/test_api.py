@@ -1,12 +1,11 @@
-from django.urls import reverse
-
-from API.tests import factory as api_factory
-from rest_framework.test import APITestCase
 from API.serializers.mailbox import MailboxDefaultSerializer
-from rest_framework import status
-from mailservice.models.template import Template
-from mailservice.models.mailbox import Mailbox
+from API.tests import factory as api_factory
+from django.urls import reverse
 from mailservice.models.email import Email
+from mailservice.models.mailbox import Mailbox
+from mailservice.models.template import Template
+from rest_framework import status
+from rest_framework.test import APITestCase
 
 
 class TestAPI(APITestCase):

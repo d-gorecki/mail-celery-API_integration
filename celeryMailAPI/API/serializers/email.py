@@ -1,14 +1,12 @@
-from typing import OrderedDict, Any
-from rest_framework import serializers
+from typing import Any, OrderedDict
 
+from API.serializers.mailbox import MailboxDefaultSerializer
+from API.serializers.template import TemplateSerializer
 from mailservice.models import Mailbox
 from mailservice.models.email import Email
 from mailservice.tasks import send_email_task
-from API.serializers.template import TemplateSerializer
-from API.serializers.mailbox import MailboxDefaultSerializer
-
+from rest_framework import serializers, status
 from rest_framework.exceptions import APIException
-from rest_framework import status
 
 
 class CustomException(APIException):

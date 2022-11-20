@@ -1,10 +1,10 @@
+from datetime import datetime
+
 import factory
 from factory import Faker
-
 from mailservice.models.email import Email
-from mailservice.models.template import Template
 from mailservice.models.mailbox import Mailbox
-from datetime import datetime
+from mailservice.models.template import Template
 
 
 class MailboxFactory(factory.django.DjangoModelFactory):

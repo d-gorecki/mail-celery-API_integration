@@ -1,9 +1,9 @@
-from django.db.models import QuerySet
-from rest_framework import viewsets
-from mailservice.models.email import Email
-from API.serializers.email import EmailSerializer
-from django_filters import rest_framework as filters
 from API.filters import EmailFilter
+from API.serializers.email import EmailSerializer
+from django.db.models import QuerySet
+from django_filters import rest_framework as filters
+from mailservice.models.email import Email
+from rest_framework import viewsets
 
 
 class EmailViewSet(viewsets.ModelViewSet):

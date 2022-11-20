@@ -1,7 +1,7 @@
-from django.db.models import QuerySet
-from rest_framework import viewsets
 from API.serializers.mailbox import MailboxDefaultSerializer
+from django.db.models import QuerySet
 from mailservice.models.mailbox import Mailbox
+from rest_framework import viewsets
 
 
 class MailboxViewSet(viewsets.ModelViewSet):

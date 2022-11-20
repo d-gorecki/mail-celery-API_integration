@@ -1,7 +1,8 @@
-from typing import Any, OrderedDict
-from rest_framework import serializers
-from mailservice.models.template import Template
 from datetime import datetime
+from typing import Any, OrderedDict
+
+from mailservice.models.template import Template
+from rest_framework import serializers
 
 
 class TemplateSerializer(serializers.ModelSerializer):

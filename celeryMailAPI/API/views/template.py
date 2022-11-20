@@ -1,7 +1,7 @@
-from django.db.models import QuerySet
-from rest_framework import viewsets
 from API.serializers.template import TemplateSerializer
+from django.db.models import QuerySet
 from mailservice.models.template import Template
+from rest_framework import viewsets
 
 
 class TemplateViewSet(viewsets.ModelViewSet):

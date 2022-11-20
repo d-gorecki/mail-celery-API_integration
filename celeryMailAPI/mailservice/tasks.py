@@ -1,14 +1,14 @@
+import logging
+import os
+from datetime import datetime
 from typing import Any, Union
 
-from django.core.mail import EmailMessage, get_connection
 from celery import shared_task
-from celery.signals import task_success, task_failure
+from celery.signals import task_failure, task_success
+from django.conf import settings
+from django.core.mail import EmailMessage, get_connection
 from mailservice.models.email import Email
 from mailservice.models.mailbox import Mailbox
-from datetime import datetime
-from django.conf import settings
-import os
-import logging
 
 
 @shared_task(bind=True)

@@ -2,8 +2,8 @@ import os.path
 import uuid
 from typing import Optional
 
-from django.db import models
 from django.conf import settings
+from django.db import models
 
 
 class Template(models.Model):

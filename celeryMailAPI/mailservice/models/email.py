@@ -1,8 +1,10 @@
 import uuid
+
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
+
 from .mailbox import Mailbox
 from .template import Template
-from django.contrib.postgres.fields import ArrayField
 
 
 class Email(models.Model):

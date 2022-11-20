@@ -1,6 +1,7 @@
-from typing import OrderedDict, Any
-from rest_framework import serializers
+from typing import Any, OrderedDict
+
 from mailservice.models.mailbox import Mailbox
+from rest_framework import serializers
 
 
 class MailboxDefaultSerializer(serializers.ModelSerializer):

@@ -14,7 +14,9 @@ class TestAPI(APITestCase):
         response = self.client.post(
             reverse("template-list"), {"subject": "test", "text": "test"}
         )
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(
+            response.status_code, status.HTTP_201_CREATED, f"{response.data}"
+        )
         self.assertEqual(Template.objects.count(), 1)
 
     def test_create_mailbox(self):
@@ -48,7 +50,9 @@ class TestAPI(APITestCase):
             "reply_to": "test@gmail.com",
         }
         response = self.client.post(reverse("email-list"), email_dict)
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(
+            response.status_code, status.HTTP_400_BAD_REQUEST, f"{response.data}"
+        )
 
     def test_delete_mailbox(self):
         mailbox = api_factory.MailboxFactory()

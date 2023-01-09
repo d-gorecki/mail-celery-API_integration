@@ -1,5 +1,4 @@
-## Implementation of recruitment task for the position of backend developer
-### _Tech-stack: Python, Django, Django REST framework, PostgreSQL, Celery, redis, Docker, docker-compose_
+### __Tech-stack: Python, Django, Django REST framework, PostgreSQL, Celery, redis, Docker, docker-compose__
 
 ## Task objective
 
@@ -8,7 +7,7 @@ Create a REST API that allows to send emails:
 * with the content and theme defined in the Template (Template model from the database),
 * from a previously defined mailbox (Mailbox model from the database).
 
-## Tools required
+## Tools
 
 * Python >= 3.10,
 * Django, DRF
